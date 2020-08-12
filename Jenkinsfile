@@ -1,3 +1,4 @@
+
 pipeline {
   agent {
     docker {
@@ -6,21 +7,24 @@ pipeline {
     }
   }
   environment {
-    CREDS = credentials('aws-creds')
-    AWS_ACCESS_KEY_ID = "$CREDS_USR"
-    AWS_SECRET_ACCESS_KEY = "$CREDS_PSW"
+    CREDS = credentials('Rahaf')
+    AWS_ACCESS_KEY_ID = "${CREDS_USR}"
+    AWS_SECRET_ACCESS_KEY = "${CREDS_PSW}"
     OWNER = 'rahaf'
     PROJECT_NAME = 'web-server'
   }
   stages {
     stage("build") {
-     sh 'packer build packer.json'
+      steps {
+        sh 'packer build packer.json'
+      }
     }
   }
-}
-post {
+  post {
     success {
         build quietPeriod: 0, wait: false, job: 'rahaf'  
     }
+  }
 }
-}
+
+
