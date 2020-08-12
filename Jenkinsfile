@@ -2,7 +2,7 @@ pipeline {
   agent {
     docker {
       image "bryandollery/terraform-packer-aws-alpine"
-      args "-u root"
+      args "-u root --entrypoint=''"
     }
   }
   environment {
@@ -14,7 +14,11 @@ pipeline {
   }
   stages {
     stage("build") {
-      packer build packer.json
+     sh 'packer build packer.json'
     }
   }
 }
+post {
+    success {
+        build quietPeriod: 0, wait: false, job: 'rahaf'  
+    }
