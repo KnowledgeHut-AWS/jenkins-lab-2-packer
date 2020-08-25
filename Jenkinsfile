@@ -18,10 +18,10 @@ spec:
     }
   }
   environment {
-    CREDS = credentials('fouz_aws_creds')
+    CREDS = credentials('frog')
     AWS_ACCESS_KEY_ID = "${CREDS_USR}"
     AWS_SECRET_ACCESS_KEY = "${CREDS_PSW}"
-    OWNER = 'bryan'
+    OWNER = 'fouz'
     PROJECT_NAME = 'web-server'
   }
   stages {
@@ -35,7 +35,7 @@ spec:
   }
   post {
     success {
-        build quietPeriod: 0, wait: false, job: 'Fouz'  
+        build quietPeriod: 0, wait: false, job: 'fouz'  
     }
   }
 }
